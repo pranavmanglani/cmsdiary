@@ -9,59 +9,128 @@ st.set_page_config(
 )
 
 st.title("📖 Student Daily Diary")
-st.write("A simple daily diary for students to manage homework, notices, and learning.")
+st.write("A daily diary for students with homework, notices, and vocabulary building.")
 
-# ================= WORD & QUOTE ENGINE =================
+# ================= WORD + MEANING + QUOTE ENGINE =================
 
-advanced_words = [
-    "Perseverance", "Resilience", "Intellect", "Diligence", "Integrity",
-    "Curiosity", "Meticulous", "Cognition", "Innovation", "Tenacity",
-    "Empathy", "Rationale", "Ambition", "Consistency", "Endeavour",
-    "Pragmatic", "Virtuous", "Analytical", "Scholarly", "Composure",
-    "Judicious", "Proficiency", "Ingenuity", "Astute", "Dedication",
-    "Discretion", "Fortitude", "Versatile", "Sincerity", "Excellence",
-    "Contemplation", "Adaptability", "Persistence", "Accountability",
-    "Precision", "Visionary", "Discipline", "Determination", "Humility",
-    "Credibility", "Perspective", "Wisdom", "Initiative", "Proactive",
-    "Sustainability", "Efficiency", "Competence", "Resourcefulness"
+word_bank = [
+    {
+        "word": "Perseverance",
+        "meaning": "The ability to continue trying despite difficulties.",
+    },
+    {
+        "word": "Resilience",
+        "meaning": "The capacity to recover quickly from challenges.",
+    },
+    {
+        "word": "Diligence",
+        "meaning": "Careful and persistent effort in work or study.",
+    },
+    {
+        "word": "Integrity",
+        "meaning": "The quality of being honest and having strong moral principles.",
+    },
+    {
+        "word": "Curiosity",
+        "meaning": "A strong desire to learn or know something.",
+    },
+    {
+        "word": "Meticulous",
+        "meaning": "Showing great attention to detail; very careful.",
+    },
+    {
+        "word": "Tenacity",
+        "meaning": "Determination to keep going despite obstacles.",
+    },
+    {
+        "word": "Empathy",
+        "meaning": "The ability to understand and share the feelings of others.",
+    },
+    {
+        "word": "Ambition",
+        "meaning": "A strong desire to achieve success or excellence.",
+    },
+    {
+        "word": "Discipline",
+        "meaning": "The practice of training oneself to follow rules and routines.",
+    },
+    {
+        "word": "Humility",
+        "meaning": "Having a modest view of one's importance.",
+    },
+    {
+        "word": "Wisdom",
+        "meaning": "The ability to make good judgments based on knowledge and experience.",
+    },
+    {
+        "word": "Consistency",
+        "meaning": "The habit of performing actions regularly and reliably.",
+    },
+    {
+        "word": "Accountability",
+        "meaning": "Taking responsibility for one’s actions and decisions.",
+    },
+    {
+        "word": "Adaptability",
+        "meaning": "The ability to adjust to new conditions or changes.",
+    },
+    {
+        "word": "Fortitude",
+        "meaning": "Mental strength in facing adversity or difficulty.",
+    },
+    {
+        "word": "Ingenuity",
+        "meaning": "The ability to think creatively and solve problems.",
+    },
+    {
+        "word": "Precision",
+        "meaning": "Accuracy and exactness in action or speech.",
+    },
+    {
+        "word": "Perspective",
+        "meaning": "A particular way of viewing or understanding something.",
+    },
+    {
+        "word": "Determination",
+        "meaning": "Firmness of purpose; resoluteness.",
+    }
 ]
 
-advanced_quotes = [
+quotes = [
     "True success is built quietly through consistent effort.",
     "Discipline today creates freedom tomorrow.",
-    "Knowledge grows when curiosity is never silenced.",
-    "Great achievements begin with the courage to start.",
     "Learning is not preparation for life; learning is life.",
     "Small improvements repeated daily create remarkable results.",
-    "Mistakes are not failures; they are lessons in disguise.",
-    "Focus is the bridge between goals and accomplishment.",
+    "Mistakes are proof that learning is happening.",
     "Excellence is not an act, but a habit.",
-    "Effort invested today becomes confidence tomorrow.",
-    "Growth happens when comfort zones are challenged.",
+    "Focus is the bridge between goals and achievement.",
+    "Growth begins where comfort ends.",
     "Patience and persistence conquer all difficulties.",
-    "Success favors those who refuse to quit.",
+    "Knowledge grows when curiosity leads the way.",
+    "Success belongs to those who refuse to quit.",
     "Understanding is deeper than memorization.",
-    "Character is revealed by what you do when no one is watching.",
-    "Consistency turns average actions into outstanding results.",
-    "Education sharpens the mind and strengthens the character.",
-    "Your attitude determines the height of your achievement.",
+    "Character is revealed by daily actions.",
+    "Consistency turns effort into achievement.",
+    "Wisdom begins with the willingness to learn.",
     "Progress is made by those who keep moving forward.",
-    "Wisdom begins with the willingness to learn."
+    "Hard work today creates confidence tomorrow.",
+    "Education shapes both the mind and character.",
+    "Attitude determines the height of success.",
+    "Great achievements begin with a decision to try."
 ]
 
-# Generate 1000+ word–quote pairs
+# Create 1000+ combinations
 word_quote_pairs = []
-counter = 1
+for entry in word_bank:
+    for quote in quotes:
+        word_quote_pairs.append({
+            "word": entry["word"],
+            "meaning": entry["meaning"],
+            "quote": quote
+        })
 
-for word in advanced_words:
-    for quote in advanced_quotes:
-        word_quote_pairs.append(
-            (f"{word} ({counter})", quote)
-        )
-        counter += 1
-
-# Random selection on each reload
-random_word, random_quote = random.choice(word_quote_pairs)
+# Random selection every reload
+daily_item = random.choice(word_quote_pairs)
 
 # ================= DATE =================
 selected_date = st.date_input("📅 Date", date.today())
@@ -97,10 +166,13 @@ with notice_col1:
 
 with notice_col2:
     st.markdown("### 📖 Word of the Day")
-    st.success(random_word)
+    st.success(daily_item["word"])
+
+    st.markdown("**Meaning:**")
+    st.write(daily_item["meaning"])
 
     st.markdown("### 💬 Quote of the Day")
-    st.info(random_quote)
+    st.info(daily_item["quote"])
 
 st.markdown("---")
 
@@ -121,5 +193,6 @@ if st.button("✅ Save Diary"):
 
     st.markdown("### 📢 Notice Board")
     st.write(f"**Notice:** {notice}")
-    st.write(f"**Word of the Day:** {random_word}")
-    st.write(f"**Quote:** {random_quote}")
+    st.write(f"**Word of the Day:** {daily_item['word']}")
+    st.write(f"**Meaning:** {daily_item['meaning']}")
+    st.write(f"**Quote:** {daily_item['quote']}")
