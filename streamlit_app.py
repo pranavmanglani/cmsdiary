@@ -9,98 +9,38 @@ st.set_page_config(
 )
 
 st.title("📖 Student Daily Diary")
-st.write("A daily diary for students with homework, notices, and vocabulary building.")
+st.caption("Daily subject diary with notices and vocabulary building")
 
 # ================= WORD + MEANING + QUOTE ENGINE =================
 
 word_bank = [
-    {
-        "word": "Perseverance",
-        "meaning": "The ability to continue trying despite difficulties.",
-    },
-    {
-        "word": "Resilience",
-        "meaning": "The capacity to recover quickly from challenges.",
-    },
-    {
-        "word": "Diligence",
-        "meaning": "Careful and persistent effort in work or study.",
-    },
-    {
-        "word": "Integrity",
-        "meaning": "The quality of being honest and having strong moral principles.",
-    },
-    {
-        "word": "Curiosity",
-        "meaning": "A strong desire to learn or know something.",
-    },
-    {
-        "word": "Meticulous",
-        "meaning": "Showing great attention to detail; very careful.",
-    },
-    {
-        "word": "Tenacity",
-        "meaning": "Determination to keep going despite obstacles.",
-    },
-    {
-        "word": "Empathy",
-        "meaning": "The ability to understand and share the feelings of others.",
-    },
-    {
-        "word": "Ambition",
-        "meaning": "A strong desire to achieve success or excellence.",
-    },
-    {
-        "word": "Discipline",
-        "meaning": "The practice of training oneself to follow rules and routines.",
-    },
-    {
-        "word": "Humility",
-        "meaning": "Having a modest view of one's importance.",
-    },
-    {
-        "word": "Wisdom",
-        "meaning": "The ability to make good judgments based on knowledge and experience.",
-    },
-    {
-        "word": "Consistency",
-        "meaning": "The habit of performing actions regularly and reliably.",
-    },
-    {
-        "word": "Accountability",
-        "meaning": "Taking responsibility for one’s actions and decisions.",
-    },
-    {
-        "word": "Adaptability",
-        "meaning": "The ability to adjust to new conditions or changes.",
-    },
-    {
-        "word": "Fortitude",
-        "meaning": "Mental strength in facing adversity or difficulty.",
-    },
-    {
-        "word": "Ingenuity",
-        "meaning": "The ability to think creatively and solve problems.",
-    },
-    {
-        "word": "Precision",
-        "meaning": "Accuracy and exactness in action or speech.",
-    },
-    {
-        "word": "Perspective",
-        "meaning": "A particular way of viewing or understanding something.",
-    },
-    {
-        "word": "Determination",
-        "meaning": "Firmness of purpose; resoluteness.",
-    }
+    {"word": "Perseverance", "meaning": "The ability to continue trying despite difficulties."},
+    {"word": "Resilience", "meaning": "The capacity to recover quickly from challenges."},
+    {"word": "Diligence", "meaning": "Careful and persistent effort in work or study."},
+    {"word": "Integrity", "meaning": "The quality of being honest and having strong moral principles."},
+    {"word": "Curiosity", "meaning": "A strong desire to learn or know something."},
+    {"word": "Meticulous", "meaning": "Showing great attention to detail."},
+    {"word": "Tenacity", "meaning": "Determination to keep going despite obstacles."},
+    {"word": "Empathy", "meaning": "The ability to understand the feelings of others."},
+    {"word": "Ambition", "meaning": "A strong desire to achieve success."},
+    {"word": "Discipline", "meaning": "Training oneself to follow rules and routines."},
+    {"word": "Humility", "meaning": "Having a modest view of one’s importance."},
+    {"word": "Wisdom", "meaning": "The ability to make good judgments."},
+    {"word": "Consistency", "meaning": "Performing actions regularly and reliably."},
+    {"word": "Accountability", "meaning": "Taking responsibility for one’s actions."},
+    {"word": "Adaptability", "meaning": "The ability to adjust to new conditions."},
+    {"word": "Fortitude", "meaning": "Mental strength in facing difficulties."},
+    {"word": "Ingenuity", "meaning": "The ability to think creatively and solve problems."},
+    {"word": "Precision", "meaning": "Accuracy and exactness."},
+    {"word": "Perspective", "meaning": "A way of viewing or understanding something."},
+    {"word": "Determination", "meaning": "Firmness of purpose."}
 ]
 
 quotes = [
     "True success is built quietly through consistent effort.",
     "Discipline today creates freedom tomorrow.",
-    "Learning is not preparation for life; learning is life.",
     "Small improvements repeated daily create remarkable results.",
+    "Learning is not preparation for life; learning is life.",
     "Mistakes are proof that learning is happening.",
     "Excellence is not an act, but a habit.",
     "Focus is the bridge between goals and achievement.",
@@ -119,7 +59,7 @@ quotes = [
     "Great achievements begin with a decision to try."
 ]
 
-# Create 1000+ combinations
+# Generate 1000+ combinations
 word_quote_pairs = []
 for entry in word_bank:
     for quote in quotes:
@@ -129,7 +69,6 @@ for entry in word_bank:
             "quote": quote
         })
 
-# Random selection every reload
 daily_item = random.choice(word_quote_pairs)
 
 # ================= DATE =================
@@ -140,35 +79,38 @@ st.markdown("---")
 # ================= SUBJECT DIARY =================
 st.subheader("📚 Subject-wise Diary")
 
-col1, col2, col3 = st.columns(3)
+c1, c2, c3 = st.columns(3)
 
-with col1:
-    maths = st.text_area("➗ Maths", height=120)
-    english = st.text_area("📘 English", height=120)
+with c1:
+    maths = st.text_area("➗ Maths", height=80)
+    english = st.text_area("📘 English", height=80)
 
-with col2:
-    science = st.text_area("🔬 Science", height=120)
-    social = st.text_area("🌍 Social Studies", height=120)
+with c2:
+    science = st.text_area("🔬 Science", height=80)
+    social = st.text_area("🌍 Social Studies", height=80)
 
-with col3:
-    computer = st.text_area("💻 Computer", height=120)
-    hindi = st.text_area("📕 Hindi", height=120)
+with c3:
+    computer = st.text_area("💻 Computer", height=80)
+    hindi = st.text_area("📕 Hindi", height=80)
 
 st.markdown("---")
 
-# ================= NOTICE BOARD =================
+# ================= NOTICE + WORD (NO SCROLL) =================
 st.subheader("📢 Notice Board")
 
-notice_col1, notice_col2 = st.columns([2, 1])
+left, right = st.columns([2.5, 1.2])
 
-with notice_col1:
-    notice = st.text_area("📌 Notice / Important Information", height=150)
+with left:
+    notice = st.text_area(
+        "📌 Notice / Important Information",
+        height=140
+    )
 
-with notice_col2:
+with right:
     st.markdown("### 📖 Word of the Day")
     st.success(daily_item["word"])
 
-    st.markdown("**Meaning:**")
+    st.markdown("**Meaning**")
     st.write(daily_item["meaning"])
 
     st.markdown("### 💬 Quote of the Day")
